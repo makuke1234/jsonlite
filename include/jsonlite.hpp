@@ -104,7 +104,7 @@ namespace jsonlite
 	class jsonL
 	{
 	private:
-		std::string key;
+		std::string Key;
 		std::vector<jsonL> values;
 		std::unordered_map<std::string, std::size_t> indexes;
 
@@ -117,10 +117,10 @@ namespace jsonlite
 		objtype role{ objtype::EmptyObject };
 
 		explicit jsonL(const char* key_)
-			: key(key_), role(objtype::EndPoint)
+			: Key(key_), role(objtype::EndPoint)
 		{}
 		explicit jsonL(std::string const& key_)
-			: key(key_), role(objtype::EndPoint)
+			: Key(key_), role(objtype::EndPoint)
 		{}
 		static inline std::string recurseValues(std::vector<jsonL> const& val, std::size_t depth);
 		static inline jsonL recurseParse(const char* str, std::size_t len, char type);
@@ -174,32 +174,32 @@ namespace jsonlite
 			role = objtype::Object;
 			for (auto&& i : objs_)
 			{
-				indexes[i.key] = values.size();
+				indexes[i.Key] = values.size();
 				values.emplace_back(std::move(i));
 			}
 			return *this;
 		}
 
 		jsonL(const char* key_, std::initializer_list<jsonL> objs_)
-			: key(key_), role(objtype::Object)
+			: Key(key_), role(objtype::Object)
 		{
 			for (auto const& i : objs_)
 			{
-				indexes[i.key] = values.size();
+				indexes[i.Key] = values.size();
 				values.push_back(i);
 			}
 		}
 		jsonL(std::string const& key_, std::initializer_list<jsonL> objs_)
-			: key(key_), role(objtype::Object)
+			: Key(key_), role(objtype::Object)
 		{
 			for (auto const& i : objs_)
 			{
-				indexes[i.key] = values.size();
+				indexes[i.Key] = values.size();
 				values.push_back(i);
 			}
 		}
 		jsonL(const char* key_, std::initializer_list<const char*> values_)
-			: key(key_), role(objtype::Object)
+			: Key(key_), role(objtype::Object)
 		{
 			for (auto i : values_)
 			{
@@ -208,7 +208,7 @@ namespace jsonlite
 			}
 		}
 		jsonL(std::string const& key_, std::initializer_list<std::string> values_)
-			: key(key_), role(objtype::Object)
+			: Key(key_), role(objtype::Object)
 		{
 			for (auto i : values_)
 			{
@@ -217,10 +217,10 @@ namespace jsonlite
 			}
 		}
 		jsonL(const char* key_, const char* value_)
-			: key(key_), values{ jsonL(value_) }, indexes{ {value_, 0} }, role(objtype::PairObject)
+			: Key(key_), values{ jsonL(value_) }, indexes{ {value_, 0} }, role(objtype::PairObject)
 		{}
 		jsonL(std::string const& key_, std::string const& value_)
-			: key(key_), values{ jsonL(value_) }, indexes{ {value_, 0} }, role(objtype::PairObject)
+			: Key(key_), values{ jsonL(value_) }, indexes{ {value_, 0} }, role(objtype::PairObject)
 		{}
 
 		jsonL& operator[](const char* key_)
@@ -253,21 +253,25 @@ namespace jsonlite
 				throw jsonlite::exception(jsonlite::exception::type::OutOfBounds);
 			return values[index];
 		}
+		std::string const& key() noexcept
+		{
+			return Key;
+		}
 		std::string& get()
 		{
 			if (role == objtype::PairObject)
-				return values.front().key;
+				return values.front().Key;
 			else if (role == objtype::EndPoint)
-				return key;
+				return Key;
 			else
 				throw jsonlite::exception(jsonlite::exception::type::NotAnEndpoint);
 		}
 		std::string const& get() const
 		{
 			if (role == objtype::PairObject)
-				return values.front().key;
+				return values.front().Key;
 			else if (role == objtype::EndPoint)
-				return key;
+				return Key;
 			else
 				throw jsonlite::exception(jsonlite::exception::type::NotAnEndpoint);
 		}
@@ -275,7 +279,7 @@ namespace jsonlite
 		{
 			if (addable.role == objtype::EndPoint)
 			{
-				indexes = { { addable.key, 0 } };
+				indexes = { { addable.Key, 0 } };
 				values = { addable };
 				role = objtype::PairObject;
 			}
@@ -592,21 +596,21 @@ namespace jsonlite
 
 			if (i->role == objtype::PairObject)
 			{
-				dumpstream << '"' << i->key << "\": \"" << i->values.front().key << '"';
+				dumpstream << '"' << i->Key << "\": \"" << i->values.front().Key << '"';
 				if (std::next(i) != val.end())
 					dumpstream << ',';
 				dumpstream << '\n';
 			}
 			else if (i->role == objtype::EndPoint)
 			{
-				dumpstream << '"' << i->key << '"';
+				dumpstream << '"' << i->Key << '"';
 				if (std::next(i) != val.end())
 					dumpstream << ',';
 				dumpstream << '\n';
 			}
 			else
 			{
-				dumpstream << '"' << i->key << "\":\n";
+				dumpstream << '"' << i->Key << "\":\n";
 				for (std::size_t j = 0; j < depth; ++j)
 				{
 					dumpstream << '\t';
