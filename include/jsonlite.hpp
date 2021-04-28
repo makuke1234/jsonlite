@@ -253,7 +253,7 @@ namespace jsonlite
 				throw jsonlite::exception(jsonlite::exception::type::OutOfBounds);
 			return values[index];
 		}
-		std::string const& key() noexcept
+		std::string const& key() const noexcept
 		{
 			return Key;
 		}
