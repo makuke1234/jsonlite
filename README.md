@@ -1,6 +1,6 @@
 # jsonlite
 
-A light-weight single-include JSON library, relying on KISS (Keep It Stupid Simple)
+A light-weight single-include C++ JSON library, relying on KISS (Keep It Stupid Simple)
 convention and C++11 STL. Supports JSON string parsing and 'beautiful' dumping.
 'Easy' C++-like syntax is also supported.
 
@@ -21,6 +21,11 @@ errors and to be, yet again, simple.
 
 Currently, it's alpha-quality software, extensive testing is yet to be done.
 
+# C bindings
+
+In the folder 'C_bindings' of my repository you can find the needed source files to
+compile the C bindings of this C++ library yourself. If you think that that is unnecessary
+then you can just download the 'libjsonlite.a' file from the recurring 'bin' directory.
 
 # Licensing
 As stated, this project follows the MIT license.
