@@ -25,7 +25,7 @@ Currently, it's alpha-quality software, extensive testing is yet to be done.
 
 In the folder 'C_bindings' of my repository you can find the needed source files to
 compile the C bindings of this C++ library yourself. If you think that that is unnecessary
-then you can just download the 'libjsonlite.a' file from the recurring 'bin' directory.
+then you can just download the 'libjsonlite.a' file from the 'bin' subdirectory.
 
 # Licensing
 As stated, this project follows the MIT license.
