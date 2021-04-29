@@ -198,6 +198,24 @@ namespace jsonlite
 				values.push_back(i);
 			}
 		}
+		jsonL(const char* key_, std::vector<jsonL> const& objs_)
+			: Key(key_), values(objs_), role(objtype::Object)
+		{
+			std::size_t j = 0;
+			for (auto const& i : values)
+			{
+				indexes[i.Key] = j++;
+			}
+		}
+		jsonL(std::string const& key_, std::vector<jsonL> const& objs_)
+			: Key(key_), values(objs_), role(objtype::Object)
+		{
+			std::size_t j = 0;
+			for (auto const& i : values)
+			{
+				indexes[i.Key] = j++;
+			}
+		}
 		jsonL(const char* key_, std::initializer_list<const char*> values_)
 			: Key(key_), role(objtype::Object)
 		{
@@ -211,6 +229,15 @@ namespace jsonlite
 			: Key(key_), role(objtype::Object)
 		{
 			for (auto i : values_)
+			{
+				indexes[i] = values.size();
+				values.push_back(jsonL(i));
+			}
+		}
+		jsonL(std::string const& key_, std::vector<std::string> const& objs_)
+			: Key(key_), role(objtype::Object)
+		{
+			for (auto const& i : objs_)
 			{
 				indexes[i] = values.size();
 				values.push_back(jsonL(i));
