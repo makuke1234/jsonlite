@@ -33,7 +33,7 @@ namespace jsonlite
 	{
 		return std::stoull(str);
 	}
-	
+
 	template<class T> inline T stof(std::string const& str);
 	template<> inline float stof<float>(std::string const& str)
 	{
@@ -68,7 +68,7 @@ namespace jsonlite
 			ParseIncorrectNumber,
 			ParseIncorrectValue,
 			ParseNoKeyValue,
-			
+
 			enum_size
 		};
 		type Type{ type::Unknown };
@@ -262,6 +262,16 @@ namespace jsonlite
 			else
 				return values[it->second];
 		}
+		jsonL const& operator[](const char* key_) const
+		{
+			auto it = indexes.find(key_);
+			if (it == indexes.end())
+			{
+				throw jsonlite::exception(jsonlite::exception::type::OutOfBounds);
+			}
+			else
+				return values[it->second];
+		}
 		jsonL& operator[](std::string const& key_)
 		{
 			auto it = indexes.find(key_);
@@ -274,7 +284,23 @@ namespace jsonlite
 			else
 				return values[it->second];
 		}
+		jsonL const& operator[](std::string const& key_) const
+		{
+			auto it = indexes.find(key_);
+			if (it == indexes.end())
+			{
+				throw jsonlite::exception(jsonlite::exception::type::OutOfBounds);
+			}
+			else
+				return values[it->second];
+		}
 		jsonL& operator[](int index)
+		{
+			if (std::size_t(index) >= values.size())
+				throw jsonlite::exception(jsonlite::exception::type::OutOfBounds);
+			return values[index];
+		}
+		jsonL const& operator[](int index) const
 		{
 			if (std::size_t(index) >= values.size())
 				throw jsonlite::exception(jsonlite::exception::type::OutOfBounds);
@@ -324,13 +350,13 @@ namespace jsonlite
 
 		template<class T, typename std::enable_if<std::is_unsigned<T>::value>::type* = nullptr,
 			typename std::enable_if<!std::is_same<T, bool>::value>::type* = nullptr>
-		T getas() const
+			T getas() const
 		{
 			return jsonlite::stou<T>(get());
 		}
 		template<class T, typename std::enable_if<std::is_integral<T>::value>::type* = nullptr,
 			typename std::enable_if<std::is_signed<T>::value>::type* = nullptr>
-		T getas() const
+			T getas() const
 		{
 			return jsonlite::stoi<T>(get());
 		}
@@ -366,41 +392,41 @@ namespace jsonlite
 			switch (*s)
 			{
 				// Find the value
-				case '"':
+			case '"':
+			{
+				auto prev = '"';
+				for (e = s + 1; e != endp; ++e)
 				{
-					auto prev = '"';
-					for (e = s + 1; e != endp; ++e)
-					{
-						if (*e == '"' && prev != '\\')
-							return true;
-						prev = *e;
-					}
-					break;
+					if (*e == '"' && prev != '\\')
+						return true;
+					prev = *e;
 				}
-				case '[':
-				case '{':
+				break;
+			}
+			case '[':
+			case '{':
+			{
+				std::vector<char> st{ *s };
+				for (e = s + 1; e != endp; ++e)
 				{
-					std::vector<char> st{ *s };
-					for (e = s + 1; e != endp; ++e)
+					if (*e == '"')
 					{
-						if (*e == '"')
-						{
-							if (!findend(e, e, endp))
-								return false;
-						}
-						else
-						{
-							if (*e == '[' || *e == '{')
-								st.push_back(*e);
-							else if ((*e == ']' && st.back() == '[') || (*e == '}' && st.back() == '{'))
-								st.pop_back();
+						if (!findend(e, e, endp))
+							return false;
+					}
+					else
+					{
+						if (*e == '[' || *e == '{')
+							st.push_back(*e);
+						else if ((*e == ']' && st.back() == '[') || (*e == '}' && st.back() == '{'))
+							st.pop_back();
 
-							if (st.empty())
-								return true;
-						}
+						if (st.empty())
+							return true;
 					}
-					break;
 				}
+				break;
+			}
 			}
 			return false;
 		};
@@ -450,7 +476,7 @@ namespace jsonlite
 						sp += 3;
 					else
 						throw exception(exception::type::ParseIncorrectTrue);
-					
+
 					obj.values.push_back(jsonL("true"));
 					break;
 				case 'f':
@@ -458,7 +484,7 @@ namespace jsonlite
 						sp += 4;
 					else
 						throw exception(exception::type::ParseIncorrectFalse);
-					
+
 					obj.values.push_back(jsonL("false"));
 					break;
 				default:
@@ -517,7 +543,7 @@ namespace jsonlite
 						if (sp == ep)
 							throw exception(exception::type::ParseNoKeyValue);
 					} while (*sp != '"' && *sp != '[' && *sp != '{' && *sp != 'n' && *sp != 't' && *sp != 'f' && !(*sp >= '0' && *sp <= '9'));
-					
+
 					switch (*sp)
 					{
 						// string : value pair
@@ -559,7 +585,7 @@ namespace jsonlite
 							sp += 3;
 						else
 							throw exception(exception::type::ParseIncorrectTrue);
-						
+
 						obj[tokenKey].equate(jsonL("true"));
 						break;
 					case 'f':
@@ -567,7 +593,7 @@ namespace jsonlite
 							sp += 4;
 						else
 							throw exception(exception::type::ParseIncorrectFalse);
-						
+
 						obj[tokenKey].equate(jsonL("false"));
 						break;
 					default:
