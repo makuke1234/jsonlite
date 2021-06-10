@@ -1,4 +1,5 @@
 # jsonlite
+![Release version](https://img.shields.io/badge/beta-v0.9.0-red.svg)
 
 A light-weight single-include C++ JSON library, relying on KISS (Keep It Stupid Simple)
 convention and C++11 STL. Supports JSON string parsing and 'beautiful' dumping.
