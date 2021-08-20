@@ -1,0 +1,23 @@
+{
+	"test_label": "my name",
+	"numbers":
+	[
+		0,
+		1,
+		2,
+		55,
+		55.45,
+		99.9990
+	],
+	"object":
+	{
+		"also numbers":
+		[
+			1,
+			33.1415,
+			3
+		],
+		"another label": "another value"
+	},
+	"age": 123
+}
