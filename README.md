@@ -17,12 +17,22 @@ on any floating point type.
 It also supports exceptions, they are designed to give hint about obvious syntax
 errors and to be, yet again, simple.
 
+Using the C++ library is pretty self-explanatory in its essence so no extra
+documentation has been provided with it. The usage of the C bindings is a little
+more tricky due to the language itself, thus more often than not the extra
+documentation in the 'C_bindings/src' subdirectory might be helpful.
+
 
 # C bindings
 
 In the folder 'C_bindings' of my repository you can find the needed source files to
-compile the C bindings of this C++ library yourself. If you think that that is unnecessary
-then you can just download the 'libjsonlite.a' file from the 'bin' subdirectory.
+compile the C bindings of this C++ library yourself. If you think that would be unnecessary work,
+you can just download the 'libjsonlite.a' file from the 'bin' subdirectory (as long
+as you GCC/G++ to link the final executable).
+
+The extra documentation neccessary for the C bindings is also located in 'src' subdirectory.
+
 
 # Licensing
+
 As stated, this project follows the MIT license.
