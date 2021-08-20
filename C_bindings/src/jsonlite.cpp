@@ -145,7 +145,7 @@ extern "C"
 		}
 		return obj;
 	}
-	char* dump(jsonliteS_t obj)
+	char* jsonlite_dump(jsonliteS_t obj)
 	{
 		auto const& str = static_cast<jsonlite::jsonL*>(obj.jsonlite_jsonL_mem)->dump();
 		auto sz = (str.length() + 1) * sizeof(char);
@@ -173,9 +173,7 @@ extern "C"
 		jsonliteS_t obj{};
 		try
 		{
-			obj.jsonlite_jsonL_mem = new jsonlite::jsonL(
-				static_cast<jsonlite::jsonL*>(origobj.jsonlite_jsonL_mem)->operator[](key)
-			);
+			obj.jsonlite_jsonL_mem = &static_cast<jsonlite::jsonL*>(origobj.jsonlite_jsonL_mem)->operator[](key);
 		}
 		catch (jsonlite::exception& e)
 		{
@@ -188,9 +186,7 @@ extern "C"
 		jsonliteS_t obj{};
 		try
 		{
-			obj.jsonlite_jsonL_mem = new jsonlite::jsonL(
-				static_cast<jsonlite::jsonL*>(origobj.jsonlite_jsonL_mem)->operator[](index)
-			);
+			obj.jsonlite_jsonL_mem = &static_cast<jsonlite::jsonL*>(origobj.jsonlite_jsonL_mem)->operator[](index);
 		}
 		catch (jsonlite::exception& e)
 		{
