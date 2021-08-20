@@ -1,4 +1,4 @@
-  #ifndef JSONLITE_H
+#ifndef JSONLITE_H
 #define JSONLITE_H
 
 #ifdef __cplusplus
@@ -51,7 +51,7 @@ jsonliteS_t jsonlite_makekeyobject(const char* key, const jsonliteS_t object);
 jsonliteS_t jsonlite_makekeyobjects(const char* key, const jsonliteS_t* objects, size_t sz);
 
 jsonliteS_t jsonlite_parse(const char* str, size_t size);
-char* dump(jsonliteS_t obj);
+char* jsonlite_dump(jsonliteS_t obj);
 char* jsonlite_getexception(jsonliteS_t obj);
 bool jsonlite_clearexception(jsonliteS_t obj);
 
