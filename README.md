@@ -33,6 +33,16 @@ as you GCC/G++ to link the final executable).
 The extra documentation neccessary for the C bindings is also located in 'src' subdirectory.
 
 
+# Testing
+
+In my opinion a comprehensive enough testing has been done, the jsonlite library
+has been tested with hundreds of megabytes of TeliaTV's programme descriptions
+and any bugs are yet to be found. If you find any scenario under which my library
+breaks while attempting to parse/use syntactically correct JSON files, feel free
+to report those bugs under the *Issues* tab.
+
+
 # Licensing
 
-As stated, this project follows the MIT license.
+As stated on the *About* tab, this project follows the MIT License. Feel free to
+do anything with my library under the circumstances of the MIT License.
