@@ -37,7 +37,7 @@ you can just download the 64-bit `libjsonlite.a` file from the `bin` subdirector
 as you GCC/G++ to link the final executable). If you want a 32-bit version then
 you have to unfortunately compile it yourself.
 
-The extra documentation neccessary for the C bindings is also located in `src` subdirectory.
+The extra documentation necessary for the C bindings is also located in `src` subdirectory.
 
 
 # Testing
