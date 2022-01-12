@@ -45,7 +45,7 @@ The extra documentation necessary for the C bindings is also located in `src` su
 # Testing
 
 In my opinion a comprehensive enough testing has been done, the jsonlite library
-has been tested with hundreds of megabytes of TeliaTV`s programme descriptions
+has been tested with hundreds of megabytes of TeliaTV's programme descriptions
 and any bugs are yet to be found. If you find any scenario under which my library
 breaks down while attempting to parse/use syntactically correct JSON files, feel free
 to report those bugs under the *Issues* tab.
