@@ -1,6 +1,7 @@
 # jsonlite
 
-![Release version](https://img.shields.io/badge/release-v1.0.0-green.svg)
+[![Release version](https://img.shields.io/github/v/release/makuke1234/jsonlite?display_name=release&include_prereleases)](https://github.com/makuke1234/jsonlite/releases/latest)
+[![Total downloads](https://img.shields.io/github/downloads/makuke1234/jsonlite/total)](https://github.com/makuke1234/jsonlite/releases)
 ![C++ version](https://img.shields.io/badge/version-C++11-blue.svg)
 
 A light-weight single-include C++ JSON library, relying on KISS (Keep It Stupid Simple)
